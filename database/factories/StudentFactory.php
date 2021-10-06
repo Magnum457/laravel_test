@@ -26,7 +26,7 @@ class StudentFactory extends Factory
             'telephone' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
             'birth_date' => $this->faker->dateTime('now'),
-            'gender' => $this->faker->randomElement(array('man', 'woman')),
+            'gender' => $this->faker->randomElement(array('homem', 'mulher')),
         ];
     }
 }
