@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School as School;
+use App\Models\Course as Course;
 use App\Models\Student as Student;
 use App\Http\Resources\Student as StudentResource;
 
@@ -35,8 +37,14 @@ class StudentController extends Controller
         $student->birth_date = $request->input('birth_date');
         $student->gender = $request->input('gender');
 
+        $course = Course::findOrFail($request->input('course_id'));
+
         if ($student->save()) {
-            return new ArtigoResource($student);
+            if ($course) {
+                $student->courses()->attach($course);
+            }
+
+            return new StudentResource($student);
         }
     }
 
@@ -49,7 +57,9 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::findOrFail($id);
-        return new StudentResource($student);
+        if ($student) {
+            return new StudentResource($student);
+        }
     }
 
     /**
@@ -59,9 +69,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($request->id);
+        $student = Student::findOrFail($id);
         $student->name = $request->input('name');
         $student->telephone = $request->input('telephone');
         $student->email = $request->input('email');
@@ -69,7 +79,7 @@ class StudentController extends Controller
         $student->gender = $request->input('gender');
 
         if ($student->save()) {
-            return new ArtigoResource($student);
+            return new StudentResource($student);
         }
     }
 

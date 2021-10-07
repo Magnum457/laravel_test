@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\School as School;
+use App\Models\Course as Course;
+use App\Models\Student as Student;
 use App\Http\Resources\School as SchoolResource;
 
 use Illuminate\Http\Request;
@@ -56,9 +58,9 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $school = School::findOrFail($request->id);
+        $school = School::findOrFail($id);
         $school->name = $request->input('name');
         $school->address = $request->input('address');
 

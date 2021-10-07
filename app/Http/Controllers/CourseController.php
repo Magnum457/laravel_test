@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School as School;
 use App\Models\Course as Course;
-use App\Http\Resources\Course as CourseResouce;
+use App\Models\Student as Student;
+use App\Http\Resources\Course as CourseResource;
 
 use Illuminate\Http\Request;
 
@@ -33,6 +35,7 @@ class CourseController extends Controller
         $course->series = $request->input('series');
         $course->level = $request->input('level');
         $course->shift = $request->input('shift');
+        $course->school_id = $request->input('school_id');
 
         if ($course->save()) {
             return new CourseResource($course);
@@ -48,7 +51,9 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::findOrFail($id);
-        return new CourseResouce($course);
+        if ($course) {
+            return new CourseResource($course);
+        }
     }
 
     /**
@@ -58,9 +63,9 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $course = Course::findOrFail($request->id);
+        $course = Course::findOrFail($id);
         $course->year = $request->input('year');
         $course->series = $request->input('series');
         $course->level = $request->input('level');

@@ -23,21 +23,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Courses
 Route::get('courses', [CourseController::class, 'index']);
-Route::get('course/{id}', [CourseController::class], 'show');
+Route::get('course/{id}', [CourseController::class, 'show']);
 Route::post('course', [CourseController::class, 'store']);
 Route::put('course/{id}', [CourseController::class, 'update']);
 Route::delete('course/{id}', [CourseController::class, 'destroy']);
 
 // Schools
 Route::get('schools', [SchoolController::class, 'index']);
-Route::get('school/{id}', [SchoolController::class], 'show');
+Route::get('school/{id}', [SchoolController::class, 'show']);
 Route::post('school', [SchoolController::class, 'store']);
 Route::put('school/{id}', [SchoolController::class, 'update']);
 Route::delete('school/{id}', [SchoolController::class, 'destroy']);
 
 // Students
 Route::get('students', [StudentController::class, 'index']);
-Route::get('student/{id}', [StudentController::class], 'show');
+Route::get('student/{id}', [StudentController::class, 'show']);
 Route::post('student', [StudentController::class, 'store']);
 Route::put('student/{id}', [StudentController::class, 'update']);
 Route::delete('student/{id}', [StudentController::class, 'destroy']);

@@ -4,6 +4,11 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Http\Resources\School as SchoolResource;
+use App\Http\Resources\Student as StudentResource;
+
+use App\Models\School;
+
 class Course extends JsonResource
 {
     /**
@@ -20,6 +25,8 @@ class Course extends JsonResource
             'level' => $this->level,
             'series' => $this->series,
             'shift' => $this->shift,
+            'school' => School::findOrFail($this->school_id),
+            'qtd_alunos' => count(StudentResource::collection($this->students)),
         ];
     }
 }
