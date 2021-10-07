@@ -22,7 +22,7 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->firstName().' '.$this->faker->lastName(),
             'telephone' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
             'birth_date' => $this->faker->dateTime('now'),
