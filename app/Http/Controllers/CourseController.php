@@ -19,7 +19,7 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::paginate(15);
-        return CourseResouce::collection($courses);
+        return CourseResource::collection($courses);
     }
 
     /**
